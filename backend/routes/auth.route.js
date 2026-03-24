@@ -75,6 +75,10 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
+    if (user.is_blocked) {
+      return res.status(403).json({ message: "Your account has been blocked by an administrator" });
+    }
+
     const token = jwt.sign(
       { userId: user.user_id },
       "secretkey",
@@ -87,7 +91,8 @@ router.post("/login", async (req, res) => {
       user: {
         id: user.user_id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        is_admin: user.is_admin === 1 || user.is_admin === true
       }
     });
 
@@ -110,7 +115,7 @@ router.get("/profile", protect, async (req, res) => {
 
     // Retrieve basic user info from DB
     const [user] = await pool.query(
-      "SELECT name, username, bio, profile_picture FROM users WHERE user_id = ?",
+      "SELECT name, username, bio, profile_picture, is_admin FROM users WHERE user_id = ?",
       [userId]
     );
 
@@ -145,6 +150,7 @@ router.get("/profile", protect, async (req, res) => {
       handle: "@" + user[0].username.toLowerCase(),
       bio: user[0].bio,
       profile_picture: user[0].profile_picture,
+      is_admin: user[0].is_admin === 1 || user[0].is_admin === true,
       postsCount: postsCount[0].count,
       followers: followers[0].count,
       following: following[0].count,

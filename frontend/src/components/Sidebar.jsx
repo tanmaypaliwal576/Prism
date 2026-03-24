@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Home, Search, Heart, PlusSquare, User, LogOut } from 'lucide-react';
+import { Home, Search, Heart, PlusSquare, User, LogOut, Shield } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -81,6 +81,12 @@ const Sidebar = () => {
             <User size={20} />
             Profile
           </NavLink>
+          {userProfile?.is_admin && (
+            <NavLink to="/admin" className={navLinkClass}>
+              <Shield size={20} />
+              Admin
+            </NavLink>
+          )}
         </nav>
       </div>
 

@@ -14,6 +14,7 @@ import commentRoutes from "./routes/comment.route.js";
 import followRoutes from "./routes/follow.route.js";
 import searchRoutes from "./routes/search.route.js";
 import saveRoutes from "./routes/save.route.js"; // IMPORT SAVED ROUTE
+import adminRoutes from "./routes/admin.route.js"; // ADMIN ROUTE
 
 // --- CONFIGURATION ---
 // Activate dotenv to read our .env file values securely
@@ -45,6 +46,7 @@ app.use("/api/comments", commentRoutes);  // Comment logic routes
 app.use("/api/follow", followRoutes);     // Follow/unfollow users routes
 app.use("/api/search", searchRoutes);     // Search functionality routes
 app.use("/api/saved", saveRoutes);        // MOUNT SAVED ROUTE for handling post saving
+app.use("/api/admin", adminRoutes);       // Admin analytics and management routes
 
 // --- SERVER INSTANTIATION ---
 // Tell the app to listen for incoming requests on port 5000
