@@ -4,6 +4,7 @@ import SocialGlassPage from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
+import Admin from "./pages/Admin";
 
 // Toaster is a component from react-hot-toast used to show popup notifications
 import { Toaster } from "react-hot-toast";
@@ -56,6 +57,13 @@ const App = () => {
           }
         />
 
+        {/* Admin */}
+        <Route
+          path="/admin"
+          element={
+            token ? <Admin /> : <Navigate to="/login" />
+          }
+        />
 
         {/* Profile */}
         <Route
